@@ -1,0 +1,24 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+
+    <persistence-unit name="persistence">
+        <description>Hibernate Entity Manager Example</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>dbEntities.AccountantEntity</class>
+        <class>dbEntities.BankEntity</class>
+        <class>dbEntities.ClientEntity</class>
+        <class>dbEntities.ContractEntity</class>
+        <class>dbEntities.CreditEntity</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/Bank"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="123re"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgresPlusDialect"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/Bank"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>
