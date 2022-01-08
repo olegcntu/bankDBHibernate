@@ -1,14 +1,17 @@
 package userInterface;
 
 import dbEntities.BankEntity;
+import dbEntities.ArrGenerate;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import logic.BankLogic;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
+import java.util.List;
 
 public class UserForm extends JFrame {
     private JPanel mainPanel;
@@ -33,22 +36,55 @@ public class UserForm extends JFrame {
     private JTextField textField6;
     private JTable table1;
     private JButton button1;
+    private JButton deleteButton;
+    private JTextField textField1;
+    private JTextArea textArea2;
+    private JTextField textField7;
+    private JTextField textField8;
+    private JTextField textField9;
+    private JTextField textField10;
+    private JTextField textField11;
+    private JTextField textField12;
+    private JTextArea textArea3;
+    private JButton changeButton;
 
     public UserForm(String title) {
         super(title);
         this.setContentPane(mainPanel);
         this.setSize(600, 400);
         this.setLocationRelativeTo(null);
+
+
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addBank();
+
+                BankLogic bankLogic = new BankLogic();
+                textArea1.setText(bankLogic.addBank(idTextField.getText(), textField2.getText(), textField3.getText()
+                        , textField4.getText(), textField5.getText(), textField6.getText()));
             }
         });
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                BankLogic bankLogic = new BankLogic();
+                table1.setModel(bankLogic.bankToTable());
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BankLogic bankLogic = new BankLogic();
+                textArea2.setText(bankLogic.dellBank(textField1.getText()));
+            }
+        });
+        changeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BankLogic bankLogic = new BankLogic();
+                textArea3.setText(bankLogic.changeBank(textField7.getText(), textField8.getText(), textField9.getText()
+                        , textField10.getText(), textField11.getText(), textField12.getText()));
             }
         });
     }
@@ -62,31 +98,5 @@ public class UserForm extends JFrame {
         // TODO: place custom component creation code here
     }
 
-    public void addBank(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
 
-        BankEntity bankEntity = null;
-        try {
-            bankEntity = new BankEntity(
-                    (int) Integer.parseInt(idTextField.getText()),
-                    textField2.getText(),
-                    textField3.getText(),
-                    textField4.getText(),
-                    Double.parseDouble(textField5.getText()),
-                    Double.parseDouble(textField6.getText()));
-
-        } catch (Exception ex) {
-            textArea1.setText(ex.toString());
-        }
-        try {
-            em.persist(bankEntity);
-            em.getTransaction().commit();
-
-        } catch (Exception ex) {
-            textArea1.setText(ex.toString());
-        }
-        em.close();
-    }
 }

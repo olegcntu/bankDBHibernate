@@ -2,13 +2,12 @@ package dbEntities;
 
 import jakarta.persistence.*;
 
-import javax.swing.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "bank", schema = "public", catalog = "Bank")
-public class BankEntity {
+public class BankEntity implements ArrGenerate {
     private int id;
 
     public BankEntity(int id, String town, String number, String address, Double workStart, Double workEnd) {
@@ -27,11 +26,31 @@ public class BankEntity {
     private Double workEnd;
     private Collection<AccountantEntity> accountantsById;
 
-    public BankEntity() {
+    public BankEntity()  {
 
     }
 
+    @Override
+    public String toString() {
+        return "BankEntity{" +
+                "id=" + id +
+                ", town='" + town + '\'' +
+                ", number='" + number + '\'' +
+                ", address='" + address + '\'' +
+                ", workStart=" + workStart +
+                ", workEnd=" + workEnd +
+                '}';
+    }
 
+    public String[] toTable() {
+        String idS=Integer.toString(id);
+        String workStartS=Double.toString(workStart);
+        String workEndS=Double.toString(workEnd);
+
+        String[] result={idS,town,number,address,workStartS,workEndS};
+
+        return result;
+    }
 
     @Id
     @Column(name = "id")
