@@ -29,8 +29,8 @@ public class ContractLogic {
         return new TableModel(6, list, columnArr);
     }
 
-    public String addContract(String idTextField, String textField2,
-                              String textField3, String textField4,
+        public String addContract(String idTextField, String accountant,
+                              String client, String credit,
                               String textField5, String textField6) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
@@ -38,9 +38,9 @@ public class ContractLogic {
         ContractEntity contractEntity;
         try {
 
-            AccountantEntity accountantEntity = em.find(AccountantEntity.class, textField2);
-            ClientEntity clientEntity = em.find(ClientEntity.class, textField3);
-            CreditEntity creditEntity = em.find(CreditEntity.class, textField4);
+            AccountantEntity accountantEntity = em.find(AccountantEntity.class, accountant);
+            ClientEntity clientEntity = em.find(ClientEntity.class, client);
+            CreditEntity creditEntity = em.find(CreditEntity.class, credit);
 
             contractEntity = new ContractEntity(
                     Integer.parseInt(idTextField),
@@ -81,9 +81,9 @@ public class ContractLogic {
         return "Contract delete";
     }
 
-    public String changeContract(String idTextField, String textField2,
-                                 String textField3, String textField4,
-                                 String textField5, String textField6) {
+    public String changeContract(String idTextField, String accountant,
+                                 String client, String credit,
+                                 String data, String pledge) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
 
@@ -92,15 +92,15 @@ public class ContractLogic {
         try {
 
             ContractEntity contractEntity = em.find(ContractEntity.class, Integer.parseInt(idTextField));
-            AccountantEntity accountantEntity = em.find(AccountantEntity.class, Integer.parseInt(textField2));
-            ClientEntity clientEntity = em.find(ClientEntity.class, Integer.parseInt(textField3));
-            CreditEntity creditEntity = em.find(CreditEntity.class, Integer.parseInt(textField4));
+            AccountantEntity accountantEntity = em.find(AccountantEntity.class, Integer.parseInt(accountant));
+            ClientEntity clientEntity = em.find(ClientEntity.class, Integer.parseInt(client));
+            CreditEntity creditEntity = em.find(CreditEntity.class, Integer.parseInt(credit));
 
             contractEntity.setAccountantByAccountantId(accountantEntity);
             contractEntity.setClientByClientId(clientEntity);
             contractEntity.setCreditByCreditId(creditEntity);
-            contractEntity.setDateOfConckusion(Date.valueOf(textField5));
-            contractEntity.setPledge(textField6);
+            contractEntity.setDateOfConckusion(Date.valueOf(data));
+            contractEntity.setPledge(pledge);
 
             s.update(contractEntity);
             tx1.commit();

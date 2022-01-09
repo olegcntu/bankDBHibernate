@@ -16,19 +16,19 @@ import java.util.List;
 public class AccountantLogic {
 
     public String addAccountant(String idTextField, String idBankTextField,
-                          String name, String address,
-                          String position, String phone) {
+                                String name, String address,
+                                String position, String phone) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
         AccountantEntity accountantEntity;
         try {
-            BankEntity bankEntity=em.find(BankEntity.class,   Integer.parseInt(idBankTextField));
+            BankEntity bankEntity = em.find(BankEntity.class, Integer.parseInt(idBankTextField));
 
             accountantEntity = new AccountantEntity(
-                    Integer.parseInt(idTextField), bankEntity,name,
-                    address,position, phone);
+                    Integer.parseInt(idTextField), bankEntity, name,
+                    address, position, phone);
 
         } catch (Exception ex) {
             return ex.toString();
@@ -78,8 +78,8 @@ public class AccountantLogic {
     }
 
     public String changeAccountant(String idTextField, String bankId,
-                             String textField3, String textField4,
-                             String textField5, String textField6) {
+                                   String name, String address,
+                                   String position, String number) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
 
@@ -91,10 +91,10 @@ public class AccountantLogic {
             BankEntity bankEntity = em.find(BankEntity.class, bankId);
 
             accountantEntity.setBankByIdBank(bankEntity);
-            accountantEntity.setFullName(textField3);
-            accountantEntity.setResidenceAddress(textField4);
-            accountantEntity.setPosition(textField5);
-            accountantEntity.setPhoneNumber(textField6);
+            accountantEntity.setFullName(name);
+            accountantEntity.setResidenceAddress(address);
+            accountantEntity.setPosition(position);
+            accountantEntity.setPhoneNumber(number);
 
             s.update(accountantEntity);
             tx1.commit();

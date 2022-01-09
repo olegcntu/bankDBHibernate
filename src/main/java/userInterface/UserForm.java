@@ -1,20 +1,8 @@
 package userInterface;
 
-import dbEntities.BankEntity;
-import dbEntities.ArrGenerate;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import logic.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
-import java.util.Comparator;
-import java.util.List;
 
 public class UserForm extends JFrame {
     private JPanel mainPanel;
@@ -154,20 +142,14 @@ public class UserForm extends JFrame {
             BankLogic bankLogic = new BankLogic();
             table1.setModel(bankLogic.bankToTable());
         });
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BankLogic bankLogic = new BankLogic();
-                textArea2.setText(bankLogic.dellBank(textField1.getText()));
-            }
+        deleteButton.addActionListener(e -> {
+            BankLogic bankLogic = new BankLogic();
+            textArea2.setText(bankLogic.dellBank(textField1.getText()));
         });
-        changeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BankLogic bankLogic = new BankLogic();
-                textArea3.setText(bankLogic.changeBank(textField7.getText(), textField8.getText(), textField9.getText()
-                        , textField10.getText(), textField11.getText(), textField12.getText()));
-            }
+        changeButton.addActionListener(e -> {
+            BankLogic bankLogic = new BankLogic();
+            textArea3.setText(bankLogic.changeBank(textField7.getText(), textField8.getText(), textField9.getText()
+                    , textField10.getText(), textField11.getText(), textField12.getText()));
         });
         updateButton.addActionListener(e -> {
             AccountantLogic accountantLogic = new AccountantLogic();
@@ -181,20 +163,14 @@ public class UserForm extends JFrame {
                     textField15.getText(), textField16.getText(),
                     textField17.getText(), textField18.getText()));
         });
-        deleteButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AccountantLogic accountantLogic = new AccountantLogic();
-                textArea4.setText(accountantLogic.dellAccountant(textField19.getText()));
-            }
+        deleteButton1.addActionListener(e -> {
+            AccountantLogic accountantLogic = new AccountantLogic();
+            textArea4.setText(accountantLogic.dellAccountant(textField19.getText()));
         });
-        changeButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AccountantLogic accountantLogic = new AccountantLogic();
-                textArea6.setText(accountantLogic.changeAccountant(textField20.getText(),textField21.getText(),
-                        textField22.getText(),textField23.getText(),textField24.getText(),textField25.getText()));
-            }
+        changeButton1.addActionListener(e -> {
+            AccountantLogic accountantLogic = new AccountantLogic();
+            textArea6.setText(accountantLogic.changeAccountant(textField20.getText(),textField21.getText(),
+                    textField22.getText(),textField23.getText(),textField24.getText(),textField25.getText()));
         });
         updateButton1.addActionListener(e -> {
             ContractLogic contractLogic = new ContractLogic();
@@ -202,85 +178,58 @@ public class UserForm extends JFrame {
         });
 
 
-        addButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ContractLogic contractLogic = new ContractLogic();
-                textArea7.setText(contractLogic.addContract(textField26.getText(),textField27.getText(),
-                        textField28.getText(),textField29.getText(),textField30.getText(),textField31.getText()));
-            }
+        addButton2.addActionListener(e -> {
+            ContractLogic contractLogic = new ContractLogic();
+            textArea7.setText(contractLogic.addContract(textField26.getText(),textField27.getText(),
+                    textField28.getText(),textField29.getText(),textField30.getText(),textField31.getText()));
         });
-        deleteButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ContractLogic contractLogic = new ContractLogic();
-                textArea8.setText(contractLogic.dellContract(textField32.getText()));
-            }
+        deleteButton2.addActionListener(e -> {
+            ContractLogic contractLogic = new ContractLogic();
+            textArea8.setText(contractLogic.dellContract(textField32.getText()));
         });
-        changeButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ContractLogic contractLogic = new ContractLogic();
-                textArea9.setText(contractLogic.changeContract(textField33.getText(),textField34.getText(),
-                        textField35.getText(),textField36.getText(),textField37.getText(),textField38.getText()));
-            }
+        changeButton2.addActionListener(e -> {
+            ContractLogic contractLogic = new ContractLogic();
+            textArea9.setText(contractLogic.changeContract(textField33.getText(),textField34.getText(),
+                    textField35.getText(),textField36.getText(),textField37.getText(),textField38.getText()));
         });
         updateButton3.addActionListener(e -> {
             ClientLogic clientLogic = new ClientLogic();
             table4.setModel(clientLogic.clientToTable());
         });
-        addButton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Boolean person=  personRadioButton.isSelected();
-                System.out.println(person);
-                ClientLogic clientLogic = new ClientLogic();
-                textArea10.setText(clientLogic.addClient(textField39.getText(),textField40.getText(),
-                        textField41.getText(),textField42.getText(),person));
-             }
+        addButton3.addActionListener(e -> {
+            Boolean person=  personRadioButton.isSelected();
+            System.out.println(person);
+            ClientLogic clientLogic = new ClientLogic();
+            textArea10.setText(clientLogic.addClient(textField39.getText(),textField40.getText(),
+                    textField41.getText(),textField42.getText(),person));
+         });
+        deleteButton3.addActionListener(e -> {
+            ClientLogic clientLogic = new ClientLogic();
+            textArea11.setText(clientLogic.dellClient(textField43.getText()));
         });
-        deleteButton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ClientLogic clientLogic = new ClientLogic();
-                textArea11.setText(clientLogic.dellClient(textField43.getText()));
-            }
-        });
-        changeButton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Boolean person=  personRadioButton1.isSelected();
-                ClientLogic clientLogic = new ClientLogic();
-                textArea12.setText(clientLogic.changeClient(textField44.getText(),textField45.getText(),
-                        textField46.getText(),textField47.getText(),person));
-            }
+        changeButton3.addActionListener(e -> {
+            Boolean person=  personRadioButton1.isSelected();
+            ClientLogic clientLogic = new ClientLogic();
+            textArea12.setText(clientLogic.changeClient(textField44.getText(),textField45.getText(),
+                    textField46.getText(),textField47.getText(),person));
         });
         checkButton.addActionListener(e -> {
             CreditLogic creditLogic = new CreditLogic();
             table5.setModel(creditLogic.creditToTable());
         });
-        addButton4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreditLogic creditLogic = new CreditLogic();
-                textArea13.setText(creditLogic.addCredit(textField48.getText(),textField49.getText(),
-                        textField50.getText(),textField51.getText(),textField52.getText(),textField53.getText()));
-            }
+        addButton4.addActionListener(e -> {
+            CreditLogic creditLogic = new CreditLogic();
+            textArea13.setText(creditLogic.addCredit(textField48.getText(),textField49.getText(),
+                    textField50.getText(),textField51.getText(),textField52.getText(),textField53.getText()));
         });
-        deleteButton4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreditLogic creditLogic = new CreditLogic();
-                textArea14.setText(creditLogic.dellCredit(textField54.getText()));
-            }
+        deleteButton4.addActionListener(e -> {
+            CreditLogic creditLogic = new CreditLogic();
+            textArea14.setText(creditLogic.dellCredit(textField54.getText()));
         });
-        changeButton4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreditLogic creditLogic = new CreditLogic();
-                textArea15.setText(creditLogic.changeCredit(textField55.getText(),textField56.getText(),
-                        textField57.getText(),textField58.getText(),textField59.getText(),textField60.getText()));
-            }
+        changeButton4.addActionListener(e -> {
+            CreditLogic creditLogic = new CreditLogic();
+            textArea15.setText(creditLogic.changeCredit(textField55.getText(),textField56.getText(),
+                    textField57.getText(),textField58.getText(),textField59.getText(),textField60.getText()));
         });
     }
 

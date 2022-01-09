@@ -21,30 +21,24 @@ public class ClientLogic {
         List<ArrGenerate> list = em.createQuery("FROM ClientEntity ").getResultList();
         list.sort(Comparator.comparingInt(ArrGenerate::getId));
 
-
         em.close();
         String[] columnArr = {"id", "name", "address", "number", "person"};
 
         return new TableModel(5, list, columnArr);
     }
 
-    public String addClient(String idTextField, String textField2,
-                              String textField3, String textField4,
-                              Boolean person) {
+    public String addClient(String idTextField, String name,
+                            String address, String number,
+                            Boolean person) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         ClientEntity clientEntity;
         try {
 
-
             clientEntity = new ClientEntity(
-                    Integer.parseInt(idTextField),
-                    textField2,
-                    textField3,
-                    textField4,
-                    person
-            );
+                    Integer.parseInt(idTextField), name,
+                    address, number, person);
 
         } catch (Exception ex) {
             return ex.toString();
@@ -59,6 +53,7 @@ public class ClientLogic {
         em.close();
         return "Client added";
     }
+
     public String dellClient(String idTextField) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
@@ -76,9 +71,9 @@ public class ClientLogic {
         return "Client delete";
     }
 
-    public String changeClient(String idTextField, String textField2,
-                             String textField3, String textField4,
-                             Boolean person) {
+    public String changeClient(String idTextField, String name,
+                               String address, String number,
+                               Boolean person) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
 
@@ -88,9 +83,9 @@ public class ClientLogic {
 
             ClientEntity clientEntity = em.find(ClientEntity.class, Integer.parseInt(idTextField));
 
-            clientEntity.setFullName(textField2);
-            clientEntity.setResidenceAddress(textField3);
-            clientEntity.setPhoneNumber(textField4);
+            clientEntity.setFullName(name);
+            clientEntity.setResidenceAddress(address);
+            clientEntity.setPhoneNumber(number);
             clientEntity.setYouredicPerson(person);
 
             s.update(clientEntity);

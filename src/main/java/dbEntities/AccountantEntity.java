@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "accountant", schema = "public", catalog = "Bank")
-public class AccountantEntity implements ArrGenerate{
+public class AccountantEntity implements ArrGenerate {
     private int id;
     private String fullName;
     private String residenceAddress;
@@ -39,11 +39,11 @@ public class AccountantEntity implements ArrGenerate{
 
     @Override
     public String[] toTable() {
-        String idS=Integer.toString((int) id);
-        String idBankS=Integer.toString(bankByIdBank.getId());
-        String name=fullName;
+        String idS = Integer.toString((int) id);
+        String idBankS = Integer.toString(bankByIdBank.getId());
+        String name = fullName;
 
-        return new String[]{idS,idBankS,fullName,residenceAddress,position,phoneNumber};
+        return new String[]{idS, idBankS, fullName, residenceAddress, position, phoneNumber};
 
     }
 

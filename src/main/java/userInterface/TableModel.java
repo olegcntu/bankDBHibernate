@@ -3,15 +3,14 @@ package userInterface;
 import dbEntities.ArrGenerate;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TableModel extends AbstractTableModel {
 
-    private int columnCount;
-    private int rowCount;
-    private String[] column;
-    private List<ArrGenerate> dataArrayList;
+    private final int columnCount;
+    private final int rowCount;
+    private final String[] column;
+    private final List<ArrGenerate> dataArrayList;
 
     public TableModel(int columnCount, List<ArrGenerate> list, String[] column) {
         this.columnCount = columnCount;
@@ -19,8 +18,6 @@ public class TableModel extends AbstractTableModel {
         this.column=column;
 
         this.dataArrayList=list;
-//        dataArrayList=new ArrayList<String[]>();
-//        dataArrayList.add(new String[]{"2","12","1","12","1-1","1"});
 
     }
 
@@ -48,7 +45,4 @@ public class TableModel extends AbstractTableModel {
         return column[columnIndex];
     }
 
-    public void addDate() {
-
-    }
 }

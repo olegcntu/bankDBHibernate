@@ -31,9 +31,9 @@ public class BankLogic {
         return "Bank delete";
     }
 
-    public String changeBank(String idTextField, String textField2,
-                             String textField3, String textField4,
-                             String textField5, String textField6) {
+    public String changeBank(String idTextField, String town,
+                             String number, String address,
+                             String start, String end) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
 
@@ -43,11 +43,11 @@ public class BankLogic {
 
             BankEntity bankEntity = em.find(BankEntity.class, Integer.parseInt(idTextField));
 
-            bankEntity.setTown(textField2);
-            bankEntity.setNumber(textField3);
-            bankEntity.setAddress(textField4);
-            bankEntity.setWorkStart(Double.parseDouble(textField5));
-            bankEntity.setWorkEnd(Double.parseDouble(textField6));
+            bankEntity.setTown(town);
+            bankEntity.setNumber(number);
+            bankEntity.setAddress(address);
+            bankEntity.setWorkStart(Double.parseDouble(start));
+            bankEntity.setWorkEnd(Double.parseDouble(end));
 
             s.update(bankEntity);
             tx1.commit();
@@ -56,12 +56,13 @@ public class BankLogic {
         }
         em.close();
         return "Bank refresh";
+
     }
 
 
-    public String addBank(String idTextField, String textField2,
-                          String textField3, String textField4,
-                          String textField5, String textField6) {
+    public String addBank(String idTextField, String town,
+                          String number, String address,
+                          String start, String end) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -70,11 +71,11 @@ public class BankLogic {
         try {
             bankEntity = new BankEntity(
                     Integer.parseInt(idTextField),
-                    textField2,
-                    textField3,
-                    textField4,
-                    Double.parseDouble(textField5),
-                    Double.parseDouble(textField6));
+                    town,
+                    number,
+                    address,
+                    Double.parseDouble(start),
+                    Double.parseDouble(end));
 
         } catch (Exception ex) {
             return ex.toString();
