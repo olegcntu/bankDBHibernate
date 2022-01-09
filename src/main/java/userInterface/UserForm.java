@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import logic.AccountantLogic;
 import logic.BankLogic;
+import logic.ClientLogic;
 import logic.ContractLogic;
 
 import javax.swing.*;
@@ -96,6 +97,29 @@ public class UserForm extends JFrame {
     private JTextField textField38;
     private JButton changeButton2;
     private JTextArea textArea9;
+    private JTabbedPane tabbedPane5;
+    private JTextField textField39;
+    private JTextField textField40;
+    private JTextField textField41;
+    private JTextField textField42;
+    private JTextArea textArea10;
+    private JButton addButton3;
+    private JTable table4;
+    private JButton updateButton3;
+    private JRadioButton personRadioButton;
+    private JTextField textField43;
+    private JButton deleteButton3;
+    private JTextArea textArea11;
+    private JTextField textField44;
+    private JTextField textField45;
+    private JTextField textField46;
+    private JTextField textField47;
+    private JRadioButton personRadioButton1;
+    private JTextArea textArea12;
+    private JButton changeButton3;
+    private JTabbedPane tabbedPane6;
+    private JTable table5;
+    private JButton checkButton;
 
     public UserForm(String title) {
         super(title);
@@ -183,6 +207,36 @@ public class UserForm extends JFrame {
                 ContractLogic contractLogic = new ContractLogic();
                 textArea9.setText(contractLogic.changeContract(textField33.getText(),textField34.getText(),
                         textField35.getText(),textField36.getText(),textField37.getText(),textField38.getText()));
+            }
+        });
+        updateButton3.addActionListener(e -> {
+            ClientLogic clientLogic = new ClientLogic();
+            table4.setModel(clientLogic.clientToTable());
+        });
+        addButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Boolean person=  personRadioButton.isSelected();
+                System.out.println(person);
+                ClientLogic clientLogic = new ClientLogic();
+                textArea10.setText(clientLogic.addClient(textField39.getText(),textField40.getText(),
+                        textField41.getText(),textField42.getText(),person));
+             }
+        });
+        deleteButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ClientLogic clientLogic = new ClientLogic();
+                textArea11.setText(clientLogic.dellClient(textField43.getText()));
+            }
+        });
+        changeButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Boolean person=  personRadioButton1.isSelected();
+                ClientLogic clientLogic = new ClientLogic();
+                textArea12.setText(clientLogic.changeClient(textField44.getText(),textField45.getText(),
+                        textField46.getText(),textField47.getText(),person));
             }
         });
     }

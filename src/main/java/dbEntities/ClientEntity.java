@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "client", schema = "public", catalog = "Bank")
-public class ClientEntity {
+public class ClientEntity implements ArrGenerate {
     private int id;
     private String fullName;
     private String residenceAddress;
@@ -15,10 +15,34 @@ public class ClientEntity {
     private Boolean youredicPerson;
     private Collection<ContractEntity> contractsById;
 
+    public ClientEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
         return id;
+    }
+
+    public ClientEntity(int id, String fullName, String residenceAddress,
+                        String phoneNumber, Boolean youredicPerson) {
+        this.id = id;
+        this.fullName = fullName;
+        this.residenceAddress = residenceAddress;
+        this.phoneNumber = phoneNumber;
+        this.youredicPerson = youredicPerson;
+    }
+
+    @Override
+    public String[] toTable() {
+        String idS = Integer.toString(id);
+        String person = new String();
+
+        if (youredicPerson) person = "юредическая";
+        else person = "физическая";
+
+        return new String[]{idS, fullName, residenceAddress, phoneNumber, person};
     }
 
     public void setId(int id) {
