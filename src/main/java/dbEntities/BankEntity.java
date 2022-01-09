@@ -47,9 +47,7 @@ public class BankEntity implements ArrGenerate {
         String workStartS=Double.toString(workStart);
         String workEndS=Double.toString(workEnd);
 
-        String[] result={idS,town,number,address,workStartS,workEndS};
-
-        return result;
+        return new String[]{idS,town,number,address,workStartS,workEndS};
     }
 
     @Id

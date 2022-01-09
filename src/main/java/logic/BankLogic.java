@@ -37,20 +37,23 @@ public class BankLogic {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         EntityManager em = emf.createEntityManager();
 
-        Session s=em.unwrap(Session.class);
-        Transaction tx1=s.beginTransaction();
+        Session s = em.unwrap(Session.class);
+        Transaction tx1 = s.beginTransaction();
+        try {
 
-        BankEntity bankEntity=em.find(BankEntity.class, 1);
+            BankEntity bankEntity = em.find(BankEntity.class, Integer.parseInt(idTextField));
 
-        bankEntity.setTown(textField2);
-        bankEntity.setNumber(textField3);
-        bankEntity.setAddress(textField4);
-        bankEntity.setWorkStart(Double.parseDouble(textField5));
-        bankEntity.setWorkEnd(Double.parseDouble(textField6));
+            bankEntity.setTown(textField2);
+            bankEntity.setNumber(textField3);
+            bankEntity.setAddress(textField4);
+            bankEntity.setWorkStart(Double.parseDouble(textField5));
+            bankEntity.setWorkEnd(Double.parseDouble(textField6));
 
-        s.update(bankEntity);
-        tx1.commit();
-
+            s.update(bankEntity);
+            tx1.commit();
+        } catch (Exception e) {
+            return e.toString();
+        }
         em.close();
         return "Bank refresh";
     }

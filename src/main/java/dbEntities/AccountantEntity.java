@@ -7,8 +7,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "accountant", schema = "public", catalog = "Bank")
-public class AccountantEntity {
-    private long id;
+public class AccountantEntity implements ArrGenerate{
+    private int id;
     private String fullName;
     private String residenceAddress;
     private String position;
@@ -16,13 +16,38 @@ public class AccountantEntity {
     private BankEntity bankByIdBank;
     private Collection<ContractEntity> contractsById;
 
-    @Id
-    @Column(name = "id")
-    public long getId() {
-        return id;
+    public AccountantEntity(int id, BankEntity bankByIdBank, String fullName,
+                            String residenceAddress, String position,
+                            String phoneNumber) {
+        this.id = id;
+        this.fullName = fullName;
+        this.residenceAddress = residenceAddress;
+        this.position = position;
+        this.phoneNumber = phoneNumber;
+        this.bankByIdBank = bankByIdBank;
     }
 
-    public void setId(long id) {
+    public AccountantEntity() {
+
+    }
+
+    @Id
+    @Column(name = "id")
+    public int getId() {
+        return (int) id;
+    }
+
+    @Override
+    public String[] toTable() {
+        String idS=Integer.toString((int) id);
+        String idBankS=Integer.toString(bankByIdBank.getId());
+        String name=fullName;
+
+        return new String[]{idS,idBankS,fullName,residenceAddress,position,phoneNumber};
+
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 

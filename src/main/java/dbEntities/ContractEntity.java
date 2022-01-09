@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "contract", schema = "public", catalog = "Bank")
-public class ContractEntity {
+public class ContractEntity implements ArrGenerate {
     private int id;
     private Date dateOfConckusion;
     private String pledge;
@@ -15,10 +15,37 @@ public class ContractEntity {
     private ClientEntity clientByClientId;
     private CreditEntity creditByCreditId;
 
+    public ContractEntity() {
+
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
         return id;
+    }
+
+    public ContractEntity(int id, AccountantEntity accountantByAccountantId,
+                          ClientEntity clientByClientId, CreditEntity creditByCreditId,
+                          Date dateOfConckusion, String pledge) {
+        this.id = id;
+        this.dateOfConckusion = dateOfConckusion;
+        this.pledge = pledge;
+        this.accountantByAccountantId = accountantByAccountantId;
+        this.clientByClientId = clientByClientId;
+        this.creditByCreditId = creditByCreditId;
+    }
+
+    @Override
+    public String[] toTable() {
+        String idS = Integer.toString((int) id);
+        String idAccountant = Integer.toString(accountantByAccountantId.getId());
+        String idClient = Integer.toString(clientByClientId.getId());
+        String idCredit = Integer.toString(creditByCreditId.getId());
+        String date = dateOfConckusion.toString();
+
+        return new String[]{idS, idAccountant, idClient,
+                idCredit, date, pledge};
     }
 
     public void setId(int id) {
