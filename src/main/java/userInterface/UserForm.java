@@ -5,10 +5,7 @@ import dbEntities.ArrGenerate;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import logic.AccountantLogic;
-import logic.BankLogic;
-import logic.ClientLogic;
-import logic.ContractLogic;
+import logic.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -120,6 +117,25 @@ public class UserForm extends JFrame {
     private JTabbedPane tabbedPane6;
     private JTable table5;
     private JButton checkButton;
+    private JTextField textField48;
+    private JTextField textField49;
+    private JTextField textField50;
+    private JTextField textField51;
+    private JTextField textField52;
+    private JTextField textField53;
+    private JTextArea textArea13;
+    private JButton addButton4;
+    private JTextField textField54;
+    private JButton deleteButton4;
+    private JTextArea textArea14;
+    private JTextField textField55;
+    private JTextField textField56;
+    private JTextField textField57;
+    private JTextField textField58;
+    private JTextField textField59;
+    private JTextField textField60;
+    private JButton changeButton4;
+    private JTextArea textArea15;
 
     public UserForm(String title) {
         super(title);
@@ -237,6 +253,33 @@ public class UserForm extends JFrame {
                 ClientLogic clientLogic = new ClientLogic();
                 textArea12.setText(clientLogic.changeClient(textField44.getText(),textField45.getText(),
                         textField46.getText(),textField47.getText(),person));
+            }
+        });
+        checkButton.addActionListener(e -> {
+            CreditLogic creditLogic = new CreditLogic();
+            table5.setModel(creditLogic.creditToTable());
+        });
+        addButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreditLogic creditLogic = new CreditLogic();
+                textArea13.setText(creditLogic.addCredit(textField48.getText(),textField49.getText(),
+                        textField50.getText(),textField51.getText(),textField52.getText(),textField53.getText()));
+            }
+        });
+        deleteButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreditLogic creditLogic = new CreditLogic();
+                textArea14.setText(creditLogic.dellCredit(textField54.getText()));
+            }
+        });
+        changeButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreditLogic creditLogic = new CreditLogic();
+                textArea15.setText(creditLogic.changeCredit(textField55.getText(),textField56.getText(),
+                        textField57.getText(),textField58.getText(),textField59.getText(),textField60.getText()));
             }
         });
     }

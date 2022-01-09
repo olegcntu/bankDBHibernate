@@ -7,19 +7,44 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "credit", schema = "public", catalog = "Bank")
-public class CreditEntity {
+public class CreditEntity implements ArrGenerate {
     private int id;
     private Integer amount;
     private String currency;
     private Integer interest;
     private Integer estimatedTime;
     private Integer amountToBePaid;
+
     private Collection<ContractEntity> contractsById;
+
+    public CreditEntity() {
+
+    }
 
     @Id
     @Column(name = "id")
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String[] toTable() {
+        String idS = Integer.toString(id);
+        String amountS=Integer.toString(amount);
+        String interestS = interest.toString();
+        String estimatedTimeS = estimatedTime.toString();
+        String amountToBePaidS = amountToBePaid.toString();
+        return new String[]{idS, amountS, currency, interestS, estimatedTimeS, amountToBePaidS};
+    }
+
+    public CreditEntity(int id, Integer amount, String currency, Integer interest,
+                        Integer estimatedTime, Integer amountToBePaid) {
+        this.id = id;
+        this.amount = amount;
+        this.currency = currency;
+        this.interest = interest;
+        this.estimatedTime = estimatedTime;
+        this.amountToBePaid = amountToBePaid;
     }
 
     public void setId(int id) {
